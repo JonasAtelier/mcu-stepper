@@ -1,0 +1,36 @@
+# Read by ESP-IDF as a component Kconfig, and by both forges' `make menu`
+# (scripts/menu.py) for the STEPPER_<CHIP> prompts. stm-forge has no Kconfig
+# build step: its build only sees the defconfig lines, as
+# -DCONFIG_STEPPER_<CHIP>=1 or 0. Every chip is off unless set.
+menuconfig STEPPER
+    bool "Stepper driver subsystem"
+    default y
+    help
+        The stepper core: struct stepper_dev, stepper_enable(),
+        stepper_set_current(), stepper_read_status() and the stepper_* log
+        helpers. Pick the chip drivers you need below; none is built by
+        default, so a chip missing from sdkconfig is off.
+
+if STEPPER
+
+    config STEPPER_TMC2209
+        bool "ADI/Trinamic TMC2209 (single-wire UART, velocity)"
+        default n
+        help
+            Build the TMC2209 driver: tmc2209_init() and friends. The UART
+            is the app's to install and configure.
+
+    config STEPPER_TMC5240
+        bool "ADI/Trinamic TMC5240 (SPI, ramp generator)"
+        default n
+        help
+            Build the TMC5240 driver: tmc5240_init() and friends.
+
+    config STEPPER_DEBUG
+        bool "stepper_dbg() lines"
+        default n
+        help
+            STM32 HAL only: compile stepper_dbg() lines in. On ESP-IDF
+            stepper_dbg() is ESP_LOGD and the log level decides.
+
+endif # STEPPER

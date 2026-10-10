@@ -1,0 +1,18 @@
+# ESP-IDF builds of examples/esp/
+build/
+sdkconfig
+sdkconfig.old
+managed_components/
+dependencies.lock
+docs/*.pdf
+test/test_tmc2209_math
+test/test_tmc5240_math
+test/esp/test_core
+test/esp/test_tmc2209
+test/esp/test_tmc5240
+test/esp/test_tmc5240_shared
+test/esp/test_port_esp
+test/stm/test_core
+test/stm/test_tmc2209
+test/stm/test_tmc5240
+test/stm/test_port_stm
