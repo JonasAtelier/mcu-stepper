@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" role="img" aria-labelledby="t d">
+  <title id="t">A target position entering a TMC5240, which runs the whole ramp itself</title>
+  <desc id="d">A target position is handed to a TMC5240 and the chip drives the motor through a trapezoidal velocity ramp on its own, with no step pulse from the host.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d2238"/>
+      <stop offset="1" stop-color="#102f34"/>
+    </linearGradient>
+    <filter id="g" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      .lbl  { font-family: ui-monospace, monospace; font-size: 13px; fill: #9edbc4; letter-spacing: 1px; }
+      .blk  { font-family: ui-monospace, monospace; font-size: 15px; fill: #e8f5ef; letter-spacing: 1.5px; }
+      .sml  { font-family: ui-monospace, monospace; font-size: 11px; fill: #9edbc4; letter-spacing: 1px; }
+      .wire { stroke: #51c99c; stroke-width: 2.4; fill: none; opacity: .78; }
+      .box  { fill: none; stroke: #70e1b2; stroke-width: 2.2; opacity: .88; }
+      .grid { stroke: #234a52; stroke-width: 1; opacity: .55; }
+      .amb  { stroke: #f2bd68; stroke-width: 2.2; fill: none; }
+      .sp   { stroke: #f2bd68; stroke-width: 2; stroke-dasharray: 7 7; opacity: .8; }
+      .trace { fill: none; stroke: #70e1b2; stroke-width: 3.2;
+               stroke-dasharray: 1000; stroke-dashoffset: 1000;
+               animation: draw 6s linear infinite; }
+      .trace2{ fill: none; stroke: #f2bd68; stroke-width: 2.6; opacity: .9;
+               stroke-dasharray: 1000; stroke-dashoffset: 1000;
+               animation: draw 6s linear infinite; }
+      @keyframes draw { 0% { stroke-dashoffset: 1000; } 72% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 0; } }
+      @media (prefers-reduced-motion: reduce) {
+        .trace, .trace2 { animation: none; stroke-dashoffset: 0; }
+      }
+    </style>
+  </defs>
+
+  <rect width="900" height="400" rx="26" fill="url(#bg)"/>
+
+  <text class="lbl" x="70" y="52">XTARGET</text>
+  <path id="cmd" class="wire" d="M70 116H196"/>
+  <rect class="box" x="196" y="74" width="208" height="84" rx="7"/>
+  <text class="blk" x="300.0" y="121.0" text-anchor="middle">TMC5240</text>
+  <text class="sml" x="300" y="140" text-anchor="middle">EightPoint ramp generator</text>
+  <path class="wire" d="M404 116H520"/>
+  <text class="sml" x="462" y="104" text-anchor="middle">256 &#181;steps</text>
+  <g transform="translate(586,116)">
+    <circle r="56" class="box"/>
+    <g>
+      <line x1="0" y1="-56" x2="0" y2="56" class="grid"/>
+      <line x1="-56" y1="0" x2="56" y2="0" class="grid"/>
+      <line x1="0" y1="0" x2="0" y2="-44" class="amb" stroke-width="3"/>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360"
+                        dur="3s" repeatCount="indefinite"/>
+    </g>
+  </g>
+  <text class="lbl" x="586" y="196" text-anchor="middle">stepper</text>
+  <path class="wire" d="M642 116H760"/>
+  <rect class="box" x="760" y="96" width="80" height="40" rx="7"/>
+  <text class="blk" x="800.0" y="121.0" text-anchor="middle">load</text>
+  <text class="lbl" x="70" y="196">no step pulse, no timer</text>
+  <circle r="5.5" fill="#f2bd68" filter="url(#g)">
+    <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+      <mpath href="#cmd"/>
+    </animateMotion>
+  </circle>
+  <line x1="60" y1="228" x2="840" y2="228" stroke="#234a52" stroke-width="1" opacity=".6"/>
+  <g class="grid">
+    <line x1="70" y1="250" x2="830" y2="250"/>
+    <line x1="70" y1="276" x2="830" y2="276"/>
+    <line x1="70" y1="303" x2="830" y2="303"/>
+    <line x1="70" y1="330" x2="830" y2="330"/>
+    <line x1="70" y1="356" x2="830" y2="356"/>
+    <line x1="165" y1="250" x2="165" y2="356"/>
+    <line x1="260" y1="250" x2="260" y2="356"/>
+    <line x1="355" y1="250" x2="355" y2="356"/>
+    <line x1="450" y1="250" x2="450" y2="356"/>
+    <line x1="545" y1="250" x2="545" y2="356"/>
+    <line x1="640" y1="250" x2="640" y2="356"/>
+    <line x1="735" y1="250" x2="735" y2="356"/>
+  </g>
+  <path id="tr" class="trace" pathLength="1000" d="M70.0 343.4 L71.9 342.6 L73.8 341.7 L75.7 340.8 L77.6 339.9 L79.5 339.1 L81.4 338.2 L83.3 337.3 L85.2 336.5 L87.1 335.6 L89.0 334.7 L91.0 333.9 L92.9 333.0 L94.8 332.1 L96.7 331.3 L98.6 330.4 L100.5 329.5 L102.4 328.7 L104.3 327.8 L106.2 326.9 L108.1 326.0 L110.0 325.2 L111.9 324.3 L113.8 323.4 L115.7 322.6 L117.6 321.7 L119.5 320.8 L121.4 320.0 L123.3 319.1 L125.2 318.2 L127.1 317.4 L129.0 316.5 L131.0 315.6 L132.9 314.8 L134.8 313.9 L136.7 313.0 L138.6 312.1 L140.5 311.3 L142.4 310.4 L144.3 309.5 L146.2 308.7 L148.1 307.8 L150.0 306.9 L151.9 306.1 L153.8 305.2 L155.7 304.3 L157.6 303.5 L159.5 302.6 L161.4 301.7 L163.3 300.8 L165.2 300.0 L167.1 299.1 L169.0 298.2 L171.0 297.4 L172.9 296.5 L174.8 295.6 L176.7 294.8 L178.6 293.9 L180.5 293.0 L182.4 292.2 L184.3 291.3 L186.2 290.4 L188.1 289.6 L190.0 288.7 L191.9 287.8 L193.8 286.9 L195.7 286.1 L197.6 285.2 L199.5 284.3 L201.4 283.5 L203.3 282.6 L205.2 281.7 L207.1 280.9 L209.0 280.0 L211.0 279.1 L212.9 278.3 L214.8 277.4 L216.7 276.5 L218.6 275.7 L220.5 274.8 L222.4 273.9 L224.3 273.0 L226.2 272.2 L228.1 271.3 L230.0 270.4 L231.9 269.6 L233.8 268.7 L235.7 267.8 L237.6 267.2 L239.5 267.2 L241.4 267.2 L243.3 267.2 L245.2 267.2 L247.1 267.2 L249.0 267.2 L251.0 267.2 L252.9 267.2 L254.8 267.2 L256.7 267.2 L258.6 267.2 L260.5 267.2 L262.4 267.2 L264.3 267.2 L266.2 267.2 L268.1 267.2 L270.0 267.2 L271.9 267.2 L273.8 267.2 L275.7 267.2 L277.6 267.2 L279.5 267.2 L281.4 267.2 L283.3 267.2 L285.2 267.2 L287.1 267.2 L289.0 267.2 L291.0 267.2 L292.9 267.2 L294.8 267.2 L296.7 267.2 L298.6 267.2 L300.5 267.2 L302.4 267.2 L304.3 267.2 L306.2 267.2 L308.1 267.2 L310.0 267.2 L311.9 267.2 L313.8 267.2 L315.7 267.2 L317.6 267.2 L319.5 267.2 L321.4 267.2 L323.3 267.2 L325.2 267.2 L327.1 267.2 L329.0 267.2 L331.0 267.2 L332.9 267.2 L334.8 267.2 L336.7 267.2 L338.6 267.2 L340.5 267.2 L342.4 267.2 L344.3 267.2 L346.2 267.2 L348.1 267.2 L350.0 267.2 L351.9 267.2 L353.8 267.2 L355.7 267.2 L357.6 267.2 L359.5 267.2 L361.4 267.2 L363.3 267.2 L365.2 267.2 L367.1 267.2 L369.0 267.2 L371.0 267.2 L372.9 267.2 L374.8 267.2 L376.7 267.2 L378.6 267.2 L380.5 267.2 L382.4 267.2 L384.3 267.2 L386.2 267.2 L388.1 267.2 L390.0 267.2 L391.9 267.2 L393.8 267.2 L395.7 267.2 L397.6 267.2 L399.5 267.2 L401.4 267.2 L403.3 267.2 L405.2 267.2 L407.1 267.2 L409.0 267.2 L411.0 267.2 L412.9 267.2 L414.8 267.2 L416.7 267.2 L418.6 267.2 L420.5 267.2 L422.4 267.2 L424.3 267.2 L426.2 267.2 L428.1 267.2 L430.0 267.2 L431.9 267.2 L433.8 267.2 L435.7 267.2 L437.6 267.2 L439.5 267.2 L441.4 267.2 L443.3 267.2 L445.2 267.2 L447.1 267.2 L449.0 267.2 L451.0 267.2 L452.9 267.2 L454.8 267.2 L456.7 267.2 L458.6 267.2 L460.5 267.2 L462.4 267.2 L464.3 267.2 L466.2 267.2 L468.1 267.2 L470.0 267.2 L471.9 267.2 L473.8 267.2 L475.7 267.2 L477.6 267.2 L479.5 267.2 L481.4 267.2 L483.3 267.2 L485.2 267.2 L487.1 267.2 L489.0 267.2 L491.0 267.2 L492.9 267.2 L494.8 267.2 L496.7 267.2 L498.6 267.2 L500.5 267.2 L502.4 267.2 L504.3 267.2 L506.2 267.2 L508.1 267.2 L510.0 267.2 L511.9 267.2 L513.8 267.2 L515.7 267.2 L517.6 267.2 L519.5 267.2 L521.4 267.2 L523.3 267.2 L525.2 267.2 L527.1 267.2 L529.0 267.2 L531.0 267.2 L532.9 267.2 L534.8 267.2 L536.7 267.2 L538.6 267.2 L540.5 267.2 L542.4 267.5 L544.3 268.0 L546.2 268.5 L548.1 269.0 L550.0 269.5 L551.9 270.0 L553.8 270.5 L555.7 271.0 L557.6 271.5 L559.5 272.0 L561.4 272.5 L563.3 273.0 L565.2 273.5 L567.1 274.0 L569.0 274.5 L571.0 275.0 L572.9 275.5 L574.8 276.0 L576.7 276.5 L578.6 277.0 L580.5 277.5 L582.4 278.0 L584.3 278.5 L586.2 279.0 L588.1 279.5 L590.0 280.0 L591.9 280.5 L593.8 281.0 L595.7 281.5 L597.6 282.1 L599.5 282.6 L601.4 283.1 L603.3 283.6 L605.2 284.1 L607.1 284.6 L609.0 285.1 L611.0 285.6 L612.9 286.1 L614.8 286.6 L616.7 287.1 L618.6 287.6 L620.5 288.1 L622.4 288.6 L624.3 289.1 L626.2 289.6 L628.1 290.1 L630.0 290.6 L631.9 291.1 L633.8 291.6 L635.7 292.1 L637.6 292.6 L639.5 293.1 L641.4 293.6 L643.3 294.1 L645.2 294.6 L647.1 295.1 L649.0 295.6 L651.0 296.1 L652.9 296.6 L654.8 297.1 L656.7 297.6 L658.6 298.1 L660.5 298.7 L662.4 299.2 L664.3 299.7 L666.2 300.2 L668.1 300.7 L670.0 301.2 L671.9 301.7 L673.8 302.2 L675.7 302.7 L677.6 303.2 L679.5 303.7 L681.4 304.2 L683.3 304.7 L685.2 305.2 L687.1 305.7 L689.0 306.2 L691.0 306.7 L692.9 307.2 L694.8 307.7 L696.7 308.2 L698.6 308.7 L700.5 309.2 L702.4 309.7 L704.3 310.2 L706.2 310.7 L708.1 311.2 L710.0 311.7 L711.9 312.2 L713.8 312.7 L715.7 313.2 L717.6 313.7 L719.5 314.2 L721.4 314.8 L723.3 315.3 L725.2 315.8 L727.1 316.3 L729.0 316.8 L731.0 317.3 L732.9 317.8 L734.8 318.3 L736.7 318.8 L738.6 319.3 L740.5 319.8 L742.4 320.3 L744.3 320.8 L746.2 321.3 L748.1 321.8 L750.0 322.3 L751.9 322.8 L753.8 323.3 L755.7 323.8 L757.6 324.3 L759.5 324.8 L761.4 325.3 L763.3 325.8 L765.2 326.3 L767.1 326.8 L769.0 327.3 L771.0 327.8 L772.9 328.3 L774.8 328.8 L776.7 329.3 L778.6 329.8 L780.5 330.3 L782.4 330.8 L784.3 331.4 L786.2 331.9 L788.1 332.4 L790.0 332.9 L791.9 333.4 L793.8 333.9 L795.7 334.4 L797.6 334.9 L799.5 335.4 L801.4 335.9 L803.3 336.4 L805.2 336.9 L807.1 337.4 L809.0 337.9 L811.0 338.4 L812.9 338.9 L814.8 339.4 L816.7 339.9 L818.6 340.4 L820.5 340.9 L822.4 341.4 L824.3 341.9 L826.2 342.4 L828.1 342.9 L830.0 343.4"/>
+  <circle r="6" fill="#70e1b2" filter="url(#g)">
+    <animateMotion dur="6s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.72;1">
+      <mpath href="#tr"/>
+    </animateMotion>
+  </circle>
+  <text class="lbl" x="70" y="386">VELOCITY</text>
+  <text class="lbl" x="830" y="386" text-anchor="end" fill="#f2bd68">accelerate &#183; cruise &#183; decelerate, in hardware</text>
+</svg>
