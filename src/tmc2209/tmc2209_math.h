@@ -158,11 +158,12 @@ static inline bool tmc2209_vactual(float usteps_per_s, uint32_t clock_hz,
 static inline uint32_t tmc2209_tcoolthrs(uint32_t clock_hz,
                                          float min_usteps_per_s, uint8_t mres)
 {
-    uint32_t tcoolthrs = (uint32_t)((float)clock_hz /
-                                    (min_usteps_per_s *
-                                     (float)(1u << mres)));
+    float t = (float)clock_hz / (min_usteps_per_s * (float)(1u << mres));
 
-    if (tcoolthrs > TMC2209_TCOOLTHRS_MAX)
-        tcoolthrs = TMC2209_TCOOLTHRS_MAX;
-    return tcoolthrs;
+    /* Clamped while still a float: a tiny speed gives a period past any
+     * uint32_t, and NaN compares false, so both take the clamp rather than
+     * a cast that is undefined for them. */
+    if (!(t < (float)TMC2209_TCOOLTHRS_MAX))
+        return TMC2209_TCOOLTHRS_MAX;
+    return (uint32_t)t;
 }

@@ -157,6 +157,12 @@ renamed. Behaviour that follows:
   at 100 Hz), not `pdMS_TO_TICKS(20)` (2 ticks).
 - Log lines go under the tag `stepper` as `tmc2209: ...`, not under
   `tmc2209`.
+- **Upstream bug fixed:** `tmc2209_set_stall()` converted the TCOOLTHRS
+  period from float to `uint32_t` before clamping it to 20 bits. For a
+  very small `min_usteps_per_s` the period passes 2^32, and a NaN passes the
+  `<= 0` check, and the cast is undefined for both. It now clamps while
+  still a float: both give the 20-bit maximum, 0xFFFFF. Every value that
+  was in range before comes out the same.
 
 Added: `tmc2209_stepper()` and the `stepper_*` calls, and the STM32 port.
 `tmc2209_status_t` and every function signature are unchanged.

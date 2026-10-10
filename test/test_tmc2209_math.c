@@ -152,6 +152,14 @@ static void test_tcoolthrs(void)
 	assert(tmc2209_tcoolthrs(12000000, 2000.0f, 4) == 375);
 	/* Slower than 20 bits can say clamps. */
 	assert(tmc2209_tcoolthrs(12000000, 0.5f, 4) == 0xFFFFF);
+	/* Clamped before the cast: a period of 7.5e8, one past 2^32 (7.5e11,
+	 * where the cast was undefined), and NaN all give the 20-bit maximum. */
+	assert(tmc2209_tcoolthrs(12000000, 0.001f, 4) == 0xFFFFF);
+	assert(tmc2209_tcoolthrs(12000000, 1e-6f, 4) == 0xFFFFF);
+	assert(tmc2209_tcoolthrs(12000000, NAN, 4) == 0xFFFFF);
+	/* Right at the edge: just under the maximum truncates, at it clamps. */
+	assert(tmc2209_tcoolthrs(1048575, 1.0f, 0) == 0xFFFFF);
+	assert(tmc2209_tcoolthrs(1048574, 1.0f, 0) == 1048574);
 }
 
 int main(void)
