@@ -26,7 +26,8 @@ the ESP-IDF component directory `stepper` as well.
 > in particular follows its datasheet against the older parts' formula and
 > waits for a bench run; see [the chip reference](docs/chips.md#acceleration-scale).
 
-[Supported hardware](#supported-hardware) · [Install](#install) ·
+[Supported hardware](#supported-hardware) · [Drivers](#drivers) ·
+[Install](#install) ·
 [Quick start](#quick-start) · [Examples](#examples) ·
 [Documentation](#documentation) · [Tests](#tests)
 
@@ -34,12 +35,36 @@ the ESP-IDF component directory `stepper` as well.
 
 Both drivers support both platforms. Enable only the drivers you need.
 
-| Chip | Interface | Moves by |
+| Chip | Interface | Notes |
 |---|---|---|
-| **TMC2209** | single-wire UART, addresses 0–3 | STEP/DIR from the app, or a velocity to its own pulse generator (`tmc2209_move()`) |
-| **TMC5240** | SPI, mode 3 | its ramp generator: a target position, hardware acceleration (`tmc5240_move_to()`) |
+| **TMC2209** | UART | Trinamic stepper driver |
+| **TMC5240** | SPI | Trinamic stepper driver and motion controller |
 
 Wiring for both is in the [wiring guide](docs/hardware.md).
+
+## Drivers
+
+<details><summary><b>TMC2209</b> — UART</summary>
+
+- Interface: single-wire UART, addresses 0–3
+- Moves by: STEP/DIR from the app, or a velocity to its own pulse generator
+  (`tmc2209_move()`)
+- Examples: ESP-IDF [tmc2209](examples/esp/tmc2209/) · STM32 HAL
+  [tmc2209](examples/stm/tmc2209/main.c)
+- Chip reference: [TMC2209](docs/chips.md#tmc2209)
+
+</details>
+
+<details><summary><b>TMC5240</b> — SPI</summary>
+
+- Interface: SPI, mode 3
+- Moves by: its ramp generator: a target position, hardware acceleration
+  (`tmc5240_move_to()`)
+- Examples: ESP-IDF [tmc5240](examples/esp/tmc5240/) · STM32 HAL
+  [tmc5240](examples/stm/tmc5240/main.c)
+- Chip reference: [TMC5240](docs/chips.md#tmc5240)
+
+</details>
 
 ## Install
 
@@ -141,10 +166,7 @@ On STM32 the config takes a `UART_HandleTypeDef *` the app has
 
 ## Examples
 
-| Chip | ESP-IDF | STM32 HAL |
-|---|---|---|
-| TMC2209 | [tmc2209](examples/esp/tmc2209/) | [tmc2209](examples/stm/tmc2209/main.c) |
-| TMC5240 | [tmc5240](examples/esp/tmc5240/) | [tmc5240](examples/stm/tmc5240/main.c) |
+Each driver's examples are listed under [Drivers](#drivers).
 
 ESP-IDF examples already locate this library through `EXTRA_COMPONENT_DIRS`,
 which assumes the repository is checked out as `stepper`. With ESP-IDF
