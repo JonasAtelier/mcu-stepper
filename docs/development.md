@@ -33,7 +33,8 @@ examples/
   stm/<chip>/               STM32 snippets: tmc2209, tmc5240
 docs/                       the five guides; datasheet PDFs here are gitignored
 assets/                     README and wiring figures
-CMakeLists.txt              ESP-IDF only; stm-forge globs src/**/*.c instead
+CMakeLists.txt              ESP-IDF component; elsewhere a static library for add_subdirectory(); stm-forge globs src/**/*.c instead
+                            the static library's options are Kconfig's bool entries, found by the type line directly under each `config`
 Kconfig                     STEPPER and STEPPER_<CHIP>, for ESP-IDF and both forges' menus
 idf_component.yml           ESP-IDF component manifest
 ```
@@ -159,7 +160,8 @@ A driver is an init, a del, and three ops:
    check the chip answers, configure, and only on success set
    `stepper.ops`, `.priv` and `.microsteps`. Undo everything on failure.
    Work in errno and return `STEPPER_HANDLE_RET(err)` from the public calls.
-4. Add `CONFIG_STEPPER_FOO` to the no-chip checks in `CMakeLists.txt` and
+4. Add `CONFIG_STEPPER_FOO` to the no-chip checks in `CMakeLists.txt` (its
+   ESP-IDF part; the `add_subdirectory()` part reads `Kconfig`) and
    `src/stepper_port_stm.c` and a HAL module `#error` to
    `src/stepper_priv.h`, a `src/foo/foo.c` line to `CMakeLists.txt`, a
    `config STEPPER_FOO` bool to `Kconfig`, `# STEPPER_FOO is not set` to

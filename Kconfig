@@ -2,6 +2,8 @@
 # (scripts/menu.py) for the STEPPER_<CHIP> prompts. stm-forge has no Kconfig
 # build step: its build only sees the defconfig lines, as
 # -DCONFIG_STEPPER_<CHIP>=1 or 0. Every chip is off unless set.
+# Outside ESP-IDF, CMakeLists.txt takes its options from the bool entries
+# here, found by their type line: keep `bool` directly under each `config`.
 menuconfig STEPPER
     bool "Stepper driver subsystem"
     default y
