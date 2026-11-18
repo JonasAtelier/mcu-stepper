@@ -4,6 +4,13 @@ Set motor current and read driver status for a TMC2209 over UART or a TMC5240 ov
 
 **Platforms** · ESP-IDF 5.2+ and STM32 HAL. Hardware testing is pending. The host tests use simulated devices.
 
+## Contents
+
+- [Quick start](#quick-start)
+- [Drivers and examples](#drivers-and-examples)
+- [Using the library in your project](#using-the-library-in-your-project)
+- [License](#license)
+
 ## Quick start
 
 Wire the TMC2209 single-wire UART as shown in the wiring guide. Check the enable pin, sense resistor and motor current settings before powering the motor. The example commands motion.
@@ -24,10 +31,19 @@ idf.py build flash monitor
 
 The example spins the motor using the chip’s pulse generator and reports driver status. The TMC5240 acceleration scale still needs a bench check. [Acceleration scale](docs/chips.md#acceleration-scale)
 
+## Drivers and examples
+
+Use the common calls to enable a driver, set current and read status. The driver headers expose the TMC2209 velocity generator and TMC5240 ramp settings. [Shared API](include/stepper.h)
+
+| Chip | Driver header | ESP-IDF project | STM32 HAL example |
+|---|---|---|---|
+| [TMC2209](docs/chips.md#tmc2209) | [tmc2209.h](include/tmc2209.h) | [UART velocity command](examples/esp/tmc2209/) | [UART velocity command](examples/stm/tmc2209/main.c) |
+| [TMC5240](docs/chips.md#tmc5240) | [tmc5240.h](include/tmc5240.h) | [SPI position ramp](examples/esp/tmc5240/) | [SPI position ramp](examples/stm/tmc5240/main.c) |
+
 ## Using the library in your project
 
 - Add the component and enable the driver for your hardware. [Installation and build options](docs/installation.md)
-- Start from an example for your chip. The STM32 examples fit into a project with board setup already in place. [ESP-IDF examples](examples/esp/) · [STM32 examples](examples/stm/)
+- Open the ESP-IDF project for your hardware, or copy the STM32 example into a project with board setup already in place. [All ESP-IDF examples](examples/esp/) · [All STM32 examples](examples/stm/)
 - Look up calls and chip-specific settings. [API usage](docs/usage.md) · [Hardware reference](docs/chips.md)
 
 To run the simulated tests on your computer, run `make -C test test` from the library root. [Test requirements and coverage](docs/development.md)
@@ -39,3 +55,5 @@ To run the simulated tests on your computer, run `make -C test test` from the li
 <p align="center">
   <img src="assets/ramp.svg" width="100%" alt="A target position entering a TMC5240, which runs the whole ramp itself">
 </p>
+
+[Browse the workshop catalog · ESP32 and STM32 drivers](https://github.com/JonasAtelier/jonas-atelier-libraries#esp32-and-stm32-drivers)
