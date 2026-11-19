@@ -50,7 +50,7 @@ To run the simulated tests on your computer, run `make -C test test` from the li
 
 ## License
 
-[MIT](LICENSE)
+© 2026 JonasAtelier, [GPL-3.0-only](LICENSE)
 
 <p align="center">
   <img src="assets/ramp.svg" width="100%" alt="A target position entering a TMC5240, which runs the whole ramp itself">
